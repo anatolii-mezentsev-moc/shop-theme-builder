@@ -1,79 +1,135 @@
-# *Jurni Frontend Assignment: Shop Theme Builder*
+# Jurni Assignment: Shop Theme Builder
 
-*Replicate the [shadcn/ui Create](https://ui.shadcn.com/create) experience with a shop theme builder. Reference the shadcn create page for layout, flow, and UX patterns.*
+Replicate the [shadcn/ui Create](https://ui.shadcn.com/create) experience — but for a shop theme builder.
 
-## *What to Build*
+Use that page as your reference for layout, flow, and UX patterns.
 
-*A single-page app with two main areas:*
+---
+
+## What to Build
+
+A single-page app with two main areas:
 
 - **Left side:** Configuration steps (colors, typography, radius, etc.)
-- **Right side:** Live preview of a **mini shop website** that updates as the user changes the theme
 
-*The right-side preview should be a polished e-commerce store that looks like a real shop—not a bare-bones mock. We want to evaluate design skills: the preview should feel professional, visually appealing, and production-ready.*
+- **Right side:** Live preview of a mini shop website that updates in real time as the user changes the theme
 
-*Differences from shadcn/ui Create*
+The right-side preview should look like a real e-commerce store — polished, professional, and production-ready. We use this to evaluate design skills, so aim high.
 
+---
 
-| *shadcn Create*                               | *This Assignment*                                                                                                                                                                                                                                                                                          |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| *Pick style (Default, New York, etc.)*        | **Omit** – no style selection                                                                                                                                                                                                                                                                              |
-| *Pick component library (Radix UI / Base UI)* | **Omit** – no library selection                                                                                                                                                                                                                                                                            |
-| *Pick icon library*                           | **Omit** – no icon library selection                                                                                                                                                                                                                                                                       |
-| *Right side: Component preview*               | Right side: **Polished shop preview** (real-store quality, not a bare mock—design skills matter)                                                                                                                                                                                                           |
-| *Font: Limited selection*                     | **Font: All Google fonts** – use the [Google Fonts API](https://developers.google.com/fonts/docs/css2) to populate the dropdown with every available font. Each option in the dropdown should display a **preview rendered in its own font family** so users can see how each font looks before selecting. |
-| *—*                                           | **Bonus:** Shuffle button to randomize theme                                                                                                                                                                                                                                                               |
+## Configuration Steps (Left Side)
 
+1. **Base color** — e.g. Neutral, Slate, Gray, Zinc, Stone
 
-## *Configuration Steps (Left Side)*
+2. **Theme color** — e.g. Amber, Blue, Cyan, Rose
 
-*Include steps for:*
+3. **Heading Font** — Populate the dropdown with all Google fonts via the [Google Fonts API](https://developers.google.com/fonts/docs/css2). Each option should render a preview in its own font family so users can see how it looks before selecting.
 
-1. **Base color** – e.g. Neutral, Slate, Gray, Zinc, Stone
-2. *Theme – Color theme - e.g Amber, Blue, Cyan, Rose etc.*
-3. **Font** – Unlike shadcn, include **all Google fonts** in the select dropdown. Use the [Google Fonts API](https://developers.google.com/fonts/docs/css2) to fetch the full catalog. Each font option in the dropdown should show a **nice preview** with the font name (or sample text) rendered in that font’s own family so users can see how it looks before selecting.
-4. **Radius** – e.g. None, Small, Medium, Large
-5. **Menu color** and **Menu accent**
+4. **Body Font** - Same as above
 
-*Order and grouping can follow shadcn create. Do not add style, library, or icon library steps.*
+5. **Radius** — None, Small, Medium, Large
+
+6. **Menu color** and **Menu accent**
+
+Do not add style, library, or icon library steps (unlike shadcn/ui Create).
+
+---
 
 ## Right Side: Shop Preview
 
-Build a shop preview that looks **very nice**—like a real e-commerce site, not just a small mock. We use this to assess design skills, so aim for a professional, polished result:
+Build something that looks like a real online store:
 
-- Header (logo, nav, cart)
+- Header (logo, nav, cart icon)
+
 - Hero or banner
+
+- Featured Product section
+
 - Product grid (2–4 product cards)
-- Buttons, links, and typography that use the theme
-- *Optional ideas:* footer, newsletter signup, product quick-view or hover states, badges/labels, reviews or ratings, breadcrumbs, search bar, category filters
 
-All theme changes (colors, fonts, radius, etc.) should update the preview in real time. The preview should feel like something you’d see on a real online store.
+- Buttons, links, and typography that reflect the active theme
 
-## *Bonus: Shuffle*
+etc.
 
-*Add a **Shuffle** control that randomizes the theme (colors, radius, font) so users can explore different combinations quickly.*
+All theme changes must update the preview in real time.
 
-## *Tech Stack*
+---
 
-- *Next.js (App Router)*
-- *React*
-- *TypeScript*
-- *Tailwind CSS*
+## Bonus: Shuffle
+
+Add a **Shuffle** button that randomizes the theme (colors, font, radius) so users can explore combinations quickly.
+
+---
+
+## Shareable Theme URL
+
+Make any theme instantly shareable by a URL, so copying the link and opening it in a new tab restores the exact theme in the builder.
+
+You don't need a database. The goal is clean, well-reasoned client-side state that survives a page load.
+
+---
+
+## Your Feature
+
+Identify **one feature** that would make this product meaningfully more useful to a real user.
+
+Build it, then add a short section to your README:
+
+> **Feature: [Name]**
+
+> What user problem does it solve? Why did you choose this over other ideas? What tradeoffs did you make in the implementation?
+
+We're looking for product instinct here — not just execution. A well-scoped feature with clear reasoning will impress us more than a complex one with no explanation.
+
+---
+
+## Tech Stack
+
+- React
+
+- TypeScript
+
+- Tailwind CSS
+
 - shadcn/ui components
 
-## *Time Frame*
+---
 
-We estimate this assignment takes about 8 hours. We value your time—if you reach the 8-hour mark and aren't finished, please submit what you have.
+## Time Frame
 
-## *Git*
+We estimate this assignment takes **4–6 hours**. We value your time — if you reach the limit and aren't finished, submit what you have. Partial submissions are fine; we'd rather see your best work on fewer things than rushed work on everything.
 
-*Use Git with meaningful commits throughout your work. We use commit history to understand your process and approach.*
+---
 
-## *Evaluation*
+## Git
 
-*We will evaluate your submission on:*
+Use Git with meaningful commits throughout. We use commit history to understand your process and approach, not just the final result.
 
-- **Implementation** – Code structure, state management, API usage, and how well theme changes propagate to the preview
-- **Design** – Visual hierarchy, layout, and polish. The shop preview should look like a real, professional store—we use this to evaluate design skills
-- **UX** – Flow of the configuration steps, responsiveness of the live preview, and clarity of controls
-- **Completeness** – All configuration steps working and reflected in the preview
+---
 
+## Evaluation
+
+**Implementation** - Code structure, state management, API usage, how theme changes propagate to the preview 
+
+**Design** - Visual hierarchy, layout, and polish — the shop preview should look like a real store
+
+**UX** - Flow of configuration steps, responsiveness of the live preview, clarity of controls
+
+**Full-stack thinking** - How you approached the shareable URL — serialization decisions, edge cases, fallback behavior
+
+**Product thinking** - Quality of your chosen feature, the reasoning behind it, and how well you communicated the tradeoffs
+
+**Completeness** - All configuration steps working and reflected in the preview
+
+---
+
+## Submission
+
+When you're done, share a link to your repository. Include a README section covering:
+
+1. How to run the project locally
+
+2. Your approach to the shareable URL (decisions made, tradeoffs considered)
+
+3. Your chosen feature — what it is, why you built it, and any implementation notes
