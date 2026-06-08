@@ -5,7 +5,13 @@ import {
   THEME_COLORS,
   RADIUS_OPTIONS,
 } from '../data/theme-options'
-import type { ThemeConfig } from '../types/theme'
+import type {
+  BaseColorKey,
+  MenuAccentKey,
+  MenuColorKey,
+  ThemeColorKey,
+  ThemeConfig,
+} from '../types/theme'
 import { pickRandom } from './utils'
 
 const URL_KEYS = {
@@ -64,8 +70,24 @@ export function serializeTheme(config: ThemeConfig): string {
   return params.toString()
 }
 
+function isBaseColor(value: string): value is BaseColorKey {
+  return value in BASE_COLORS
+}
+
+function isThemeColor(value: string): value is ThemeColorKey {
+  return value in THEME_COLORS
+}
+
 function isThemeRadius(value: string): value is ThemeConfig['radius'] {
   return RADIUS_OPTIONS.includes(value as ThemeConfig['radius'])
+}
+
+function isMenuColor(value: string): value is MenuColorKey {
+  return value in MENU_COLORS
+}
+
+function isMenuAccent(value: string): value is MenuAccentKey {
+  return value in MENU_ACCENTS
 }
 
 export function parseThemeFromUrl(
@@ -83,27 +105,30 @@ export function parseThemeFromUrl(
   const menuAccent = params.get(URL_KEYS.menuAccent)
 
   return {
-    baseColor: baseColor && BASE_COLORS[baseColor] ? baseColor : fallback.baseColor,
-    themeColor:
-      themeColor && THEME_COLORS[themeColor] ? themeColor : fallback.themeColor,
+    baseColor: baseColor && isBaseColor(baseColor) ? baseColor : fallback.baseColor,
+    themeColor: themeColor && isThemeColor(themeColor) ? themeColor : fallback.themeColor,
     headingFont: headingFont || fallback.headingFont,
     bodyFont: bodyFont || fallback.bodyFont,
     radius: radius && isThemeRadius(radius) ? radius : fallback.radius,
-    menuColor: menuColor && MENU_COLORS[menuColor] ? menuColor : fallback.menuColor,
-    menuAccent:
-      menuAccent && MENU_ACCENTS[menuAccent] ? menuAccent : fallback.menuAccent,
+    menuColor: menuColor && isMenuColor(menuColor) ? menuColor : fallback.menuColor,
+    menuAccent: menuAccent && isMenuAccent(menuAccent) ? menuAccent : fallback.menuAccent,
   }
 }
 
 export function getShuffledTheme(current: ThemeConfig): ThemeConfig {
+  const baseColors = Object.keys(BASE_COLORS) as BaseColorKey[]
+  const themeColors = Object.keys(THEME_COLORS) as ThemeColorKey[]
+  const menuColors = Object.keys(MENU_COLORS) as MenuColorKey[]
+  const menuAccents = Object.keys(MENU_ACCENTS) as MenuAccentKey[]
+
   const next = {
-    baseColor: pickRandom(Object.keys(BASE_COLORS)),
-    themeColor: pickRandom(Object.keys(THEME_COLORS)),
+    baseColor: pickRandom(baseColors),
+    themeColor: pickRandom(themeColors),
     headingFont: current.headingFont,
     bodyFont: current.bodyFont,
     radius: pickRandom(RADIUS_OPTIONS),
-    menuColor: pickRandom(Object.keys(MENU_COLORS)),
-    menuAccent: pickRandom(Object.keys(MENU_ACCENTS)),
+    menuColor: pickRandom(menuColors),
+    menuAccent: pickRandom(menuAccents),
   }
 
   if (Math.random() > 0.45) {

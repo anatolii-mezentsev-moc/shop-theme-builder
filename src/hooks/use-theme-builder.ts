@@ -103,7 +103,7 @@ export function useThemeBuilder() {
 
   const themeStyles = useMemo(() => getThemeCssVariables(theme), [theme])
 
-  const updateTheme = (key: keyof ThemeConfig, value: string) => {
+  const updateTheme = <K extends ThemeFieldKey>(key: K, value: ThemeConfig[K]) => {
     setTheme((prev) => ({ ...prev, [key]: value }))
   }
 

@@ -1,6 +1,11 @@
-import type { AccentTokenSet, ColorTokenSet, ThemeConfig } from '../types/theme'
+import type {
+  AccentTokenSet,
+  ColorTokenSet,
+  RadiusOption,
+  ThemeConfig,
+} from '../types/theme'
 
-export const BASE_COLORS: Record<string, ColorTokenSet> = {
+export const BASE_COLORS = {
   Neutral: {
     background: '#f8f3ea',
     surface: '#fffdf8',
@@ -36,35 +41,35 @@ export const BASE_COLORS: Record<string, ColorTokenSet> = {
     text: '#2b2118',
     mutedText: '#6d5a49',
   },
-}
+} satisfies Record<string, ColorTokenSet>
 
-export const THEME_COLORS: Record<string, AccentTokenSet> = {
+export const THEME_COLORS = {
   Amber: { solid: '#d97706', soft: '#fef3c7', text: '#78350f' },
   Blue: { solid: '#2563eb', soft: '#dbeafe', text: '#1e3a8a' },
   Cyan: { solid: '#0891b2', soft: '#cffafe', text: '#164e63' },
   Rose: { solid: '#e11d48', soft: '#ffe4e6', text: '#881337' },
-}
+} satisfies Record<string, AccentTokenSet>
 
-export const MENU_COLORS: Record<string, AccentTokenSet> = {
+export const MENU_COLORS = {
   Charcoal: { solid: '#1f2937', soft: '#374151', text: '#f9fafb' },
   Forest: { solid: '#14532d', soft: '#166534', text: '#ecfdf5' },
   Navy: { solid: '#1e3a8a', soft: '#1d4ed8', text: '#eff6ff' },
   Cocoa: { solid: '#5b3428', soft: '#7c4b38', text: '#fff7ed' },
-}
+} satisfies Record<string, AccentTokenSet>
 
-export const MENU_ACCENTS: Record<string, AccentTokenSet> = {
+export const MENU_ACCENTS = {
   Amber: { solid: '#f59e0b', soft: '#fcd34d', text: '#1f2937' },
   Mint: { solid: '#34d399', soft: '#6ee7b7', text: '#0f172a' },
   Coral: { solid: '#fb7185', soft: '#fda4af', text: '#1f2937' },
   Sky: { solid: '#38bdf8', soft: '#7dd3fc', text: '#0f172a' },
-}
+} satisfies Record<string, AccentTokenSet>
 
-export const RADIUS_OPTIONS: ThemeConfig['radius'][] = [
+export const RADIUS_OPTIONS = [
   'none',
   'small',
   'medium',
   'large',
-]
+] as const satisfies readonly RadiusOption[]
 
 export const DEFAULT_THEME: ThemeConfig = {
   baseColor: 'Neutral',

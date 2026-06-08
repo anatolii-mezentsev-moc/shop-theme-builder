@@ -7,7 +7,11 @@ import {
   THEME_COLORS,
 } from '../../data/theme-options'
 import type {
+  BaseColorKey,
+  MenuAccentKey,
+  MenuColorKey,
   ThemeConfig,
+  ThemeColorKey,
   ThemeFieldKey,
   ThemeLocks,
   ThemePreset,
@@ -24,7 +28,7 @@ type ThemeSidebarProps = {
   isFontsLoading: boolean
   lockedSettings: ThemeLocks
   presets: ThemePreset[]
-  onUpdate: (key: keyof ThemeConfig, value: string) => void
+  onUpdate: <K extends ThemeFieldKey>(key: K, value: ThemeConfig[K]) => void
   onToggleSettingLock: (key: ThemeFieldKey) => void
   onShuffle: () => void
   onCopyShareUrl: () => Promise<boolean>
@@ -35,7 +39,7 @@ type ThemeSidebarProps = {
   presetsLimit: number
 }
 
-function toOptions(items: string[]) {
+function toOptions(items: readonly string[]) {
   return items.map((item) => ({ label: item, value: item }))
 }
 
@@ -211,7 +215,9 @@ export function ThemeSidebar({
             options={toOptions(Object.keys(BASE_COLORS))}
             locked={lockedSettings.baseColor}
             onToggleLock={() => onToggleSettingLock('baseColor')}
-            onChange={(event) => onUpdate('baseColor', event.target.value)}
+            onChange={(event) =>
+              onUpdate('baseColor', event.target.value as BaseColorKey)
+            }
           />
 
           <ThemeSelect
@@ -220,7 +226,9 @@ export function ThemeSidebar({
             options={toOptions(Object.keys(THEME_COLORS))}
             locked={lockedSettings.themeColor}
             onToggleLock={() => onToggleSettingLock('themeColor')}
-            onChange={(event) => onUpdate('themeColor', event.target.value)}
+            onChange={(event) =>
+              onUpdate('themeColor', event.target.value as ThemeColorKey)
+            }
           />
 
           <FontSelect
@@ -247,7 +255,9 @@ export function ThemeSidebar({
             options={toOptions(RADIUS_OPTIONS)}
             locked={lockedSettings.radius}
             onToggleLock={() => onToggleSettingLock('radius')}
-            onChange={(event) => onUpdate('radius', event.target.value)}
+            onChange={(event) =>
+              onUpdate('radius', event.target.value as ThemeConfig['radius'])
+            }
           />
 
           <ThemeSelect
@@ -256,7 +266,9 @@ export function ThemeSidebar({
             options={toOptions(Object.keys(MENU_COLORS))}
             locked={lockedSettings.menuColor}
             onToggleLock={() => onToggleSettingLock('menuColor')}
-            onChange={(event) => onUpdate('menuColor', event.target.value)}
+            onChange={(event) =>
+              onUpdate('menuColor', event.target.value as MenuColorKey)
+            }
           />
 
           <ThemeSelect
@@ -265,7 +277,9 @@ export function ThemeSidebar({
             options={toOptions(Object.keys(MENU_ACCENTS))}
             locked={lockedSettings.menuAccent}
             onToggleLock={() => onToggleSettingLock('menuAccent')}
-            onChange={(event) => onUpdate('menuAccent', event.target.value)}
+            onChange={(event) =>
+              onUpdate('menuAccent', event.target.value as MenuAccentKey)
+            }
           />
 
           {fontsError ? (
