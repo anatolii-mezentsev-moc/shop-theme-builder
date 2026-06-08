@@ -118,7 +118,7 @@ export function ThemeSidebar({
 
   return (
     <aside className="w-full xl:w-[390px] xl:min-w-[390px]">
-      <Panel className="sticky top-4 p-4 md:p-6">
+      <Panel className="sticky top-4 flex max-h-[calc(100vh-2rem)] flex-col p-4 md:p-6">
         <div className="mb-6 flex items-center justify-between gap-3">
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-[var(--builder-muted-text)]">
@@ -143,7 +143,7 @@ export function ThemeSidebar({
           </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="min-h-0 space-y-4 overflow-y-auto pr-3">
           <div className="rounded-[var(--builder-radius)] border border-[var(--builder-border)] bg-[var(--builder-surface)] p-3">
             <div className="mb-2 flex items-center justify-between gap-2">
               <p className="text-sm font-medium text-[var(--builder-text)]">
