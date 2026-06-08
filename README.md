@@ -1,135 +1,94 @@
-# Jurni Assignment: Shop Theme Builder
+# Shop Theme Builder
 
-Replicate the [shadcn/ui Create](https://ui.shadcn.com/create) experience — but for a shop theme builder.
-
-Use that page as your reference for layout, flow, and UX patterns.
-
----
-
-## What to Build
-
-A single-page app with two main areas:
-
-- **Left side:** Configuration steps (colors, typography, radius, etc.)
-
-- **Right side:** Live preview of a mini shop website that updates in real time as the user changes the theme
-
-The right-side preview should look like a real e-commerce store — polished, professional, and production-ready. We use this to evaluate design skills, so aim high.
-
----
-
-## Configuration Steps (Left Side)
-
-1. **Base color** — e.g. Neutral, Slate, Gray, Zinc, Stone
-
-2. **Theme color** — e.g. Amber, Blue, Cyan, Rose
-
-3. **Heading Font** — Populate the dropdown with all Google fonts via the [Google Fonts API](https://developers.google.com/fonts/docs/css2). Each option should render a preview in its own font family so users can see how it looks before selecting.
-
-4. **Body Font** - Same as above
-
-5. **Radius** — None, Small, Medium, Large
-
-6. **Menu color** and **Menu accent**
-
-Do not add style, library, or icon library steps (unlike shadcn/ui Create).
-
----
-
-## Right Side: Shop Preview
-
-Build something that looks like a real online store:
-
-- Header (logo, nav, cart icon)
-
-- Hero or banner
-
-- Featured Product section
-
-- Product grid (2–4 product cards)
-
-- Buttons, links, and typography that reflect the active theme
-
-etc.
-
-All theme changes must update the preview in real time.
-
----
-
-## Bonus: Shuffle
-
-Add a **Shuffle** button that randomizes the theme (colors, font, radius) so users can explore combinations quickly.
-
----
-
-## Shareable Theme URL
-
-Make any theme instantly shareable by a URL, so copying the link and opening it in a new tab restores the exact theme in the builder.
-
-You don't need a database. The goal is clean, well-reasoned client-side state that survives a page load.
-
----
-
-## Your Feature
-
-Identify **one feature** that would make this product meaningfully more useful to a real user.
-
-Build it, then add a short section to your README:
-
-> **Feature: [Name]**
-
-> What user problem does it solve? Why did you choose this over other ideas? What tradeoffs did you make in the implementation?
-
-We're looking for product instinct here — not just execution. A well-scoped feature with clear reasoning will impress us more than a complex one with no explanation.
-
----
+Single-page theme builder inspired by shadcn/ui Create, adapted for an e-commerce storefront preview.
 
 ## Tech Stack
 
 - React
-
 - TypeScript
-
+- Vite
 - Tailwind CSS
 
-- shadcn/ui components
+## How To Run The Project Locally
 
----
+1. Install dependencies:
 
-## Time Frame
+```bash
+npm install
+```
 
-We estimate this assignment takes **4–6 hours**. We value your time — if you reach the limit and aren't finished, submit what you have. Partial submissions are fine; we'd rather see your best work on fewer things than rushed work on everything.
+2. Start development server:
 
----
+```bash
+npm run dev
+```
 
-## Git
+3. Open the app in your browser:
 
-Use Git with meaningful commits throughout. We use commit history to understand your process and approach, not just the final result.
+```text
+http://localhost:5173
+```
 
----
+4. Optional checks:
 
-## Evaluation
+```bash
+npm run build
+npm run lint
+```
 
-**Implementation** - Code structure, state management, API usage, how theme changes propagate to the preview 
+## Shareable URL Approach
 
-**Design** - Visual hierarchy, layout, and polish — the shop preview should look like a real store
+The theme is stored in a single client-side state object and serialized into URL query params. This allows exact theme restoration without a backend.
 
-**UX** - Flow of configuration steps, responsiveness of the live preview, clarity of controls
+### Decisions made
 
-**Full-stack thinking** - How you approached the shareable URL — serialization decisions, edge cases, fallback behavior
+1. Compact URL keys are used for readability and shorter links:
+   - `b` (baseColor)
+   - `t` (themeColor)
+   - `h` (headingFont)
+   - `f` (bodyFont)
+   - `r` (radius)
+   - `m` (menuColor)
+   - `a` (menuAccent)
+2. URL is updated via `history.replaceState` on each theme change.
+3. On app load, params are parsed and validated against known option sets.
+4. Invalid or missing values fall back to defaults.
 
-**Product thinking** - Quality of your chosen feature, the reasoning behind it, and how well you communicated the tradeoffs
+### Trade-offs considered
 
-**Completeness** - All configuration steps working and reflected in the preview
+1. `replaceState` avoids polluting browser history, but users cannot step through each edit with Back/Forward.
+2. Fonts in URL are user-friendly and explicit, but can make links longer than token IDs.
+3. No backend means no shared account-level storage; URL is the primary sharing mechanism.
 
----
+## Feature: Theme Presets (Save / Load / Rename / Delete)
 
-## Submission
+### What it is
 
-When you're done, share a link to your repository. Include a README section covering:
+A local preset manager that lets users save successful combinations and reuse them later.
 
-1. How to run the project locally
+### User problem it solves
 
-2. Your approach to the shareable URL (decisions made, tradeoffs considered)
+While exploring many combinations (especially with Shuffle), users can lose good results. Presets make experimentation safe and repeatable.
 
-3. Your chosen feature — what it is, why you built it, and any implementation notes
+### Why this feature was chosen
+
+1. Directly improves the core workflow: explore -> compare -> keep.
+2. Complements Shuffle and Share URL naturally.
+3. High practical value with manageable implementation complexity.
+
+### Implementation notes
+
+1. Presets are stored in `localStorage`.
+2. CRUD operations are implemented:
+   - Save current theme with a name
+   - Load preset
+   - Rename preset
+   - Delete preset
+3. Presets are sorted by `updatedAt` (latest first).
+4. Preset limit is set to `8` to control list size and keep UX clean.
+
+### Trade-offs made
+
+1. `localStorage` is simple and fast, but presets are device/browser local.
+2. Native prompt/confirm dialogs are quick to build, but less polished than custom modals.
+3. Hard preset limit improves usability, but constrains power users.
